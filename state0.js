@@ -7,6 +7,8 @@ demo.state0.prototype = {
         console.log('state0');
         
         addChangeStateEventListeners();
+        game.scale.scaleMode = Phaser.ScaleManager.SHOW_ALL; // Game screen will adjust with the window size | Applies to all states
+        //There are 3 other scale modes that can be found on the Phaser website
 
        // Event Listener
         game.input.keyboard.addKey(Phaser.Keyboard.ONE).onDown.add(changeState, null, null, 1); //: When 1 is pressed, the game will change to state1
