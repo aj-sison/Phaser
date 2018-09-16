@@ -1,7 +1,7 @@
 // Game's 1st State (scene), e.g. menu, high schore, game over, etc.
 demo.state1 = function(){};
 
-var cursors, vel = 500;
+var cursors, vel = 500, rocks;
 
 demo.state1.prototype = {
     preload: function(){ //Loads the necessary images
@@ -23,7 +23,9 @@ demo.state1.prototype = {
         
         // Add tilemap layers
         var grass = map.createLayer('grass');
-        var rocks = map.createLayer('rocks');
+        rocks = map.createLayer('rocks');
+        
+        map.setCollisionBetween(1, 9, true, 'rocks'); //json code has rocks on a range of 1 to 9
             
         DiAngelo = game.add.sprite(200, 200, 'DiAngelo');
         DiAngelo.scale.setTo(0.2, 0.2);
@@ -32,6 +34,9 @@ demo.state1.prototype = {
         cursors = game.input.keyboard.createCursorKeys(); //Creates keys for arrow keys
     },
     update: function(){
+        //Check for collision
+        game.physics.arcade.collide(DiAngelo, rocks, function(){console.log('hitting rocks!')});//An anonymous function
+        
         if (cursors.up.isDown){
             DiAngelo.body.velocity.y = -vel; // Must use velocity w/ physics engine
         }
